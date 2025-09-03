@@ -1,3 +1,7 @@
+// seven_seg_dec.sv
+// written: Corey Hickson chickson@hmc.edu 9/2/2025
+// Purpose: 7 segment display decoder
+
 module seven_seg_dec #(parameter ACTIVE_LOW = 1'b1) (
     input  logic [3:0] s,
     output logic [6:0] seg

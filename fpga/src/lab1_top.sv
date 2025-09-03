@@ -1,3 +1,8 @@
+// lab1_top.sv
+// written: Corey Hickson chickson@hmc.edu 9/2/2025
+// Purpose: top level module for e155 lab1
+
+
 module lab1_top (
     input  logic       reset,
     input  logic [3:0] s,

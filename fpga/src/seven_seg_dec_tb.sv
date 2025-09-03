@@ -1,3 +1,7 @@
+// seven_seg_dec_tb
+// Written: Corey Hickson chickson@hmc.edu 9/2/2025
+// Purpose: functional testbench for a seven segment decoder
+
 module seven_seg_dec_tb();
     logic clk, reset;
     logic [3:0] s;

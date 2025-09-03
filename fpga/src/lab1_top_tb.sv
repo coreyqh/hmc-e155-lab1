@@ -1,3 +1,7 @@
+// lab1_top_tb.sv
+// written: Corey Hickson chickson@hmc.edu 9/2/2025
+// Purpose: functional testbench of the top level module for e155 lab1
+
 module lab1_top_tb();
     logic clk, reset;
     logic [3:0] s;

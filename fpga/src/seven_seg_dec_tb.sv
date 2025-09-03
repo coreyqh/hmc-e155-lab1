@@ -1,5 +1,5 @@
 module seven_seg_dec_tb();
-    logic clk;
+    logic clk, reset;
     logic [3:0] s;
     logic [6:0] seg;
     logic [15:0] a, b, c, d, e, f, g;
@@ -10,6 +10,7 @@ module seven_seg_dec_tb();
     seven_seg_dec #(1'b1) dut (.s(s), .seg(seg));
 
     initial begin
+        reset = 1'b1; #2; reset = 1'b0;
         errors    = 32'b0;
         s         = 4'b0;
         a         = 16'b0100100000010100;
@@ -26,14 +27,16 @@ module seven_seg_dec_tb();
     end
 
     always @(posedge clk) begin
-        a = a << 1;
-        b = b << 1; 
-        c = c << 1;
-        d = d << 1;
-        e = e << 1;
-        f = f << 1;
-        g = g << 1;
-        s = s  + 4'b1;
+        if (!reset) begin
+            a = a << 1;
+            b = b << 1; 
+            c = c << 1;
+            d = d << 1;
+            e = e << 1;
+            f = f << 1;
+            g = g << 1;
+            s = s  + 4'b1;
+        end
     end
 
     always @(negedge clk) begin

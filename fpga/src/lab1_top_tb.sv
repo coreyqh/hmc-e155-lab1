@@ -4,31 +4,29 @@ module lab1_top_tb();
     logic [6:0] seg, seg_expected;
     logic [2:0] led, led_expected;
     logic [15:0] errors, vectornum;
-    logic [14:0] testvectors [16:0];
-    //                       s[3:0] _ seg[6:0] _ led[2:0]
-    
-    initial begin
-        testvectors[0]  = 14'b0000_0111111_100;
-        testvectors[1]  = 14'b0001_0000110_101;
-        testvectors[2]  = 14'b0010_1011011_101;
-        testvectors[3]  = 14'b0011_1111001_100;
-        testvectors[4]  = 14'b0100_1100110_100;
-        testvectors[5]  = 14'b0101_1101101_101;
-        testvectors[6]  = 14'b0110_1111101_101;
-        testvectors[7]  = 14'b0111_0000111_100;
-        testvectors[8]  = 14'b1000_1111111_100;
-        testvectors[9]  = 14'b1001_1100111_101;
-        testvectors[10] = 14'b1010_1110111_101;
-        testvectors[11] = 14'b1011_1111100_100;
-        testvectors[12] = 14'b1100_0111001_100;
-        testvectors[13] = 14'b1101_1011110_101;
-        testvectors[14] = 14'b1110_1111001_101;
-        testvectors[15] = 14'b1111_1110001_100;
-        testvectors[16] = 14'bx;
+    //                                   s[3:0] _ seg[6:0] _ led[2:0]
+    logic [14:0] testvectors [0:16] = '{14'b0000_1000000_000,
+                                        14'b0001_1111001_001,
+                                        14'b0010_0100100_001,
+                                        14'b0011_0110000_000,
+                                        14'b0100_0011001_000,
+                                        14'b0101_0010010_001,
+                                        14'b0110_0000010_001,
+                                        14'b0111_1111000_000,
+                                        14'b1000_0000000_000,
+                                        14'b1001_0011000_001,
+                                        14'b1010_0001000_001,
+                                        14'b1011_0000011_000,
+                                        14'b1100_1000110_010,
+                                        14'b1101_0100001_011,
+                                        14'b1110_0000110_011,
+                                        14'b1111_0001110_010,
+                                        14'bx };
 
-        reset = 1'b1; #1; reset = 1'b0;
+    initial begin
         errors = 16'b0;
         vectornum = 16'b0;
+        reset = 1'b0; #1; reset = 1'b1; #1; reset = 1'b0;
     end
 
     always begin
@@ -38,7 +36,7 @@ module lab1_top_tb();
     lab1_top DUT (.reset(reset), .s(s), .seg(seg), .led(led));
 
     always @(posedge clk) begin
-        {s, seg_expected, led_expected} = testvectors[vectornum];
+        if (!reset) {s, seg_expected, led_expected} = testvectors[vectornum];
     end
 
     always @(negedge clk) begin
@@ -60,5 +58,6 @@ module lab1_top_tb();
         end else begin
             $display("led = %b", led);
         end
+        vectornum = vectornum + 1;
     end
 endmodule

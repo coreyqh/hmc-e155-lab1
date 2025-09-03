@@ -7,18 +7,17 @@ module seven_seg_dec_tb();
     logic [3:0] errors;
 
     // Instantiate DUT (active low enabled)
-    seven_deg_dec #(1'b1) dut (.s(s), .seg(seg));
+    seven_seg_dec #(1'b1) dut (.s(s), .seg(seg));
 
     initial begin
-        vectornum = 32'b0;
         errors    = 32'b0;
         s         = 4'b0;
         a         = 16'b0100100000010100;
-        b         = 16'b0001011000011011;
-        c         = 16'b0011000000001011;
+        b         = 16'b0000011000011011;
+        c         = 16'b0010000000001011;
         d         = 16'b0100100101100001;
-        e         = 16'b0100110101000000;
-        f         = 16'b0110000100000100;
+        e         = 16'b0101110101000000;
+        f         = 16'b0111000100000100;
         g         = 16'b1100000100001000;
     end
 
@@ -44,7 +43,7 @@ module seven_seg_dec_tb();
             $display("ERROR!: expected segment illumination: %b", {g[15], f[15], e[15], d[15], c[15], b[15], a[15]});
             errors = errors + 1;
         end
-        if (s = 4'b1111) begin
+        if (s == 4'b1111) begin
             assert (errors == 4'b0) 
                 $display("Simulation succeeded!");
             else 

@@ -5,7 +5,7 @@ module top (
     output logic [2:0] led
 );
     logic        clk;
-    logic [31:0] counter;
+    logic [31:0] count;
     logic [31:0] P = 32'd215;
 
     seven_segment_dec #(.ACTIVE_LOW(1'b1)) dec (.s(s), .seg(seg));
@@ -16,7 +16,7 @@ module top (
     // f = (F * P) / 2^n
     // 2.4 Hz = (4.8*10^6 Hz * 215) / 2^32
     always @(posedge clk) begin
-        if (reset) count = 0
+        if (reset) count = 0;
         else begin
             count = count + P;
         end

@@ -9,8 +9,12 @@ module top (
     logic [31:0] P = 32'd215;
 
     seven_segment_dec #(.ACTIVE_LOW(1'b1)) dec (.s(s), .seg(seg));
+
     HSOSC (.CLKHFPU(1'b1), .CLKHFEN(1'b1), .CLKHF(clk));
 
+    // clock divider
+    // f = (F * P) / 2^n
+    // 2.4 Hz = (4.8*10^6 Hz * 215) / 2^32
     always @(posedge clk) begin
         if (reset) count = 0
         else begin
